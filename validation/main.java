@@ -5,5 +5,15 @@ public class main {
         Scanner sc=new Scanner(System.in);
         String email=sc.next();
         EmailPattern p=new EmailPattern();
-                p.setName(email);
+            p.setName(email);
+            p.checkEmail();
+
+
+            System.out.print("Enter Nepal mobile number: ");
+        String mobile = sc.next();
+
+        MobilePattern mp = new MobilePattern();
+        mp.setMobile(mobile);
+        mp.checkMobile();
+        sc.close();
     }}

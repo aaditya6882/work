@@ -1,6 +1,6 @@
 import java.util.regex.*;
 public class EmailPattern extends Vaildate{
-    EmailPattern(){
+    public void checkEmail(){
     String patternEmail= "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.]+$";
     String email=getName();
     if (Pattern.matches(patternEmail, email)) {
