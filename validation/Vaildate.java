@@ -1,6 +1,8 @@
 class Vaildate {
+    // private string
     private String email;
     private String mobile;
+    // getters nad setters
     public void setName(String email) {
         this.email = email;
     }
