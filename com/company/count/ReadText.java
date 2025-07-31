@@ -9,7 +9,8 @@ class ReadText {
             int count=0;
             String line;
             while ((line=r.readLine())!=null) {
-                for (int i = 0; i < line.length(); i++) {
+                String[] words=line.trim().split("\\s");
+                for (int i = 0; i < words.length; i++) {
                     count+=1;
                 }
             }

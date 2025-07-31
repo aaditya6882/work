@@ -4,14 +4,14 @@ import java.io.*;
 import java.util.Scanner;
 public class CountWords {
     public static void main(String[] args) {
-        String countText="";a
+        String countText="";
         try {
             // Object to write text
             BufferedWriter w = new BufferedWriter(new FileWriter("count.txt"));
             // taking input to count the words
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter a Text to count");
-            countText=sc.next();
+            countText=sc.nextLine();
             // writing the text in the file
             w.write(countText); 
             w.close();
