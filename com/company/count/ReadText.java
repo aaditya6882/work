@@ -2,8 +2,9 @@ package com.company.count;
 
 import java.io.*;
 class ReadText {
-     ReadText(String countText) {
+     ReadText(String countText) { 
              try {
+                // onjecct to read the text and counting the text 
             BufferedReader r= new BufferedReader(new FileReader("count.txt"));
             int count=0;
             String line;
