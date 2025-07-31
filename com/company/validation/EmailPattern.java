@@ -1,3 +1,4 @@
+package com.company.validation;
 import java.util.regex.*;
 public class EmailPattern extends Vaildate{
     public void checkEmail(){

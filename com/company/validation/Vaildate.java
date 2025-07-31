@@ -1,3 +1,4 @@
+package com.company.validation;
 class Vaildate {
     // private string
     private String email;
