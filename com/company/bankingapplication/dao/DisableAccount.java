@@ -1,26 +1,22 @@
-package com.company.bankingapplication;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-
-public class EnableAccount {
+package com.company.bankingapplication.dao;
+import java.io.*;
+import java.util.*;
+public class DisableAccount {
     private String accountNum;
 
-    public EnableAccount(String accountNum) {
+    public DisableAccount(String accountNum) {
         this.accountNum = accountNum;
     }
-    public void enable(){
+    public void disable(){
         ArrayList<String> customerDetails = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader("com/company/bankingapplication/costumer.csv"));
             String line;
             while ((line = reader.readLine()) != null) {
+                 if (line.trim().isEmpty()) continue;
                 String[] details = line.split(",");
                 if (details.length == 7 && (details[4].equals(accountNum))) {
-                    details[6] = "true"; 
+                    details[6] = "false"; 
                     line = String.join(",", details);
                 }
                 customerDetails.add(line);

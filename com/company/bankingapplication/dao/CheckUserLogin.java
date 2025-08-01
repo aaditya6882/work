@@ -1,7 +1,10 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.dao;
+import com.company.bankingapplication.Controller.Menu;
+import com.company.bankingapplication.Model.Login;
+
 import java.util.Scanner;
 
-class CheckUserLogin extends Login {
+public class CheckUserLogin extends Login {
     public CheckUserLogin(String uName, String password) {
         super(uName, password);
     }

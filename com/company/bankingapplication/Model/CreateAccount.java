@@ -1,4 +1,4 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.Model;
 
 public class CreateAccount {
     private String FirstName;

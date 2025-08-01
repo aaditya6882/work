@@ -1,4 +1,4 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.Model;
 
 public class Login {
     private String uName;

@@ -1,4 +1,4 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.dao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

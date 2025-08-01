@@ -1,4 +1,14 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.Controller;
+import com.company.bankingapplication.Model.CreateAccount;
+import com.company.bankingapplication.ServiceLayer.TransactionService;
+import com.company.bankingapplication.dao.CheckBalance;
+import com.company.bankingapplication.dao.CheckUserLogin;
+import com.company.bankingapplication.dao.DisableAccount;
+import com.company.bankingapplication.dao.EnableAccount;
+import com.company.bankingapplication.dao.Modify;
+import com.company.bankingapplication.dao.ReadCostumer;
+import com.company.bankingapplication.dao.SearchCostumer;
+import com.company.bankingapplication.dao.WriteDetails;
 import java.util.Scanner;
 public class Menu {
     public static void main(String [] args){
@@ -66,7 +76,9 @@ public class Menu {
                     System.out.println("Initial Deposit:");
                     double initialDeposit = sc.nextDouble();
                     sc.nextLine(); // clear newline
-                    WriteDetails write = new WriteDetails(firstName, lastName, username, password, accountNum, initialDeposit);
+                   CreateAccount c = new CreateAccount(firstName, lastName, username, password, accountNum, initialDeposit);
+                    WriteDetails W = new WriteDetails(c);
+                    System.out.println("Account created successfully!");
                 }
             }
         } else if(input==2){
@@ -98,23 +110,32 @@ public class Menu {
             SearchCostumer s = new SearchCostumer();
             s.search(accountNum);
         } else if(input==7){
-            Transaction t = new Transaction();
+            TransactionService t = new TransactionService();
             System.out.println("Enter Account Number:");
             String accountNum = sc.nextLine();
             System.out.println("Deposit Amount:");
             double Deposit = sc.nextDouble();
             sc.nextLine();
-            t.readCustomerFile(accountNum);
-            t.deposit(Deposit);
+            System.out.println("Enter Username:");
+            String uNam = sc.nextLine();
+            ReadCostumer readcostumer = new ReadCostumer();
+            if(readcostumer.isUserOwnerOfAccount(uNam, accountNum)){
+                t.deposit(Deposit, accountNum, uNam);
+            }
         } else if(input==6){
-            Transaction t = new Transaction();
+            TransactionService t = new TransactionService();
             System.out.println("Enter Account Number:");
             String accountNum = sc.nextLine();
             System.out.println("Withdraw Amount:");
-            double Deposit = sc.nextDouble();
+            double withdraw = sc.nextDouble();
             sc.nextLine();
-            t.readCustomerFile(accountNum);
-            t.withdraw(Deposit);
+            System.out.println("Enter Username:");
+            String uNam = sc.nextLine();
+                ReadCostumer readcostumer = new ReadCostumer();
+            if(readcostumer.isUserOwnerOfAccount(uNam, accountNum)){
+                t.withdraw(withdraw,   accountNum, uNam);
+            }
+
         } else if(input==8){
             break;
         }
@@ -124,15 +145,21 @@ public class Menu {
     public static void userMenu(Scanner sc, String uNam) {
         while(true){
             System.out.println("1. Check Balance");
-            System.out.println("4. Trangition details");
-            System.out.println("5. Logout");
+            System.out.println("2 Trangition details");
+            System.out.println("3. Logout");
             int input=sc.nextInt();
+            sc.nextLine(); 
             if (input==1){
                 CheckBalance c=new CheckBalance();
                 double balance=c.readAll(uNam);
                 System.out.println("Balance: "+ balance);
-            } 
-            else if(input==5){
+            } else if(input==2){
+                System.out.println("Enter Account Number:");
+                String accountNum = sc.nextLine();
+                TransactionService t = new TransactionService();
+                t.showTransactionHistory(uNam,accountNum);
+            }
+            else if(input==3){
                 break;
             }
         }

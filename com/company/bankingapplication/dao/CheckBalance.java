@@ -1,4 +1,4 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.dao;
 import java.io.*;
 public class CheckBalance {
     public double  readAll(String uNam)

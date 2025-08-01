@@ -1,4 +1,4 @@
-package com.company.bankingapplication;
+package com.company.bankingapplication.dao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -57,4 +57,19 @@ public class ReadCostumer {
         }
         return false;
     }
+    public boolean isUserOwnerOfAccount(String uName, String accountNum) {
+    try (BufferedReader reader = new BufferedReader(new FileReader("com/company/bankingapplication/costumer.csv"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.trim().isEmpty()) continue;
+            String[] details = line.split(",");
+            if (details.length > 4 && details[2].equals(uName) && details[4].equals(accountNum)) {
+                return true;
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 }
