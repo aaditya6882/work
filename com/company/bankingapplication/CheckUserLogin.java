@@ -6,17 +6,19 @@ class CheckUserLogin extends Login {
         super(uName, password);
     }
 
-    public void checkUserLogin(String userName, String userpassword){
+    public boolean  checkUserLogin(String userName, String userpassword){
         Menu m = new Menu();
         ReadCostumer r = new ReadCostumer();
         Scanner sc = new Scanner(System.in);
 
         if (userName.equals("admin") && userpassword.equals("admin123")) {
             m.adminMenu(sc);
+            return true;
         } else if (r.validateUser(userName, userpassword)) {
             m.userMenu(sc, getUName());
+            return true;
         } else {
-            System.out.println("Invalid username or password.");
+            return false;
         }
     }
 }

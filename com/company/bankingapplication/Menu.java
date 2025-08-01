@@ -2,15 +2,30 @@ package com.company.bankingapplication;
 import java.util.Scanner;
 public class Menu {
     public static void main(String [] args){
+        while(true) {
         Scanner sc=new Scanner(System.in);
-        System.out.println("Enter username");
-        String uName=sc.nextLine();
-        System.out.println("Enter password");
-        String password=sc.next();
-        CheckUserLogin l = new CheckUserLogin(uName, password);
-        l.checkUserLogin(uName, password);
-        sc.close();
+        System.out.println("press 'exit' to exit or press 'continue' for login");
+        String exit=sc.nextLine();
+        if (exit.equals("exit")) {
+            sc.close();
+            break; 
+        }
+        else if(exit.equals("continue")) {
+            System.out.println("Enter username");
+            String uName=sc.nextLine();
+            System.out.println("Enter password");
+            String password=sc.next();
+            CheckUserLogin l = new CheckUserLogin(uName, password);
+            boolean success=l.checkUserLogin(uName, password);
+            if (!success) {
+                System.out.println("Login failed. Please try again.");
+                continue; 
+            }
+        }
+
+
 }
+    }
    public static void adminMenu(Scanner sc) {
     while(true){
         ReadCostumer r=new ReadCostumer();
