@@ -9,91 +9,102 @@ public class Menu {
         String password=sc.next();
         CheckUserLogin l = new CheckUserLogin(uName, password);
         l.checkUserLogin(uName, password);
-        // Example usage: adminMenu(sc); or userMenu(sc);
-        // adminMenu(sc);
-        // userMenu(sc);
         sc.close();
 }
-    public static void adminMenu(Scanner sc) {
-        while(true){
-            ReadCostumer r=new ReadCostumer();
-            System.out.println("1. Create Account");
-            System.out.println("2. Modify Account");
-            System.out.println("3. Disable Account");
-            System.out.println("4. Search Customer");
-            System.out.println("5. Deposit");
-             System.out.println("6. Withdraw");
-            System.out.println("7. Logout");
-            int input=sc.nextInt();
-            if(input==1){
-                System.out.println("Enter First Name:");
-                String firstName = sc.next();
-                System.out.println("Enter Last Name:");
-                String lastName = sc.next();
-                System.out.println("Enter Username:");
-                String username = sc.next();
+   public static void adminMenu(Scanner sc) {
+    while(true){
+        ReadCostumer r=new ReadCostumer();
+        System.out.println("1. Create Account");
+        System.out.println("2. Modify Account");
+        System.out.println("3. Disable Account");
+        System.out.println("4. Enable Account");
+        System.out.println("5. Search Customer");
+        System.out.println("6. Withdraw");
+        System.out.println("7. Deposit");
+        System.out.println("8. Logout");
+
+        int input = sc.nextInt();
+        sc.nextLine(); 
+
+        if(input==1){
+            System.out.println("Enter First Name:");
+            String firstName = sc.nextLine();
+
+            System.out.println("Enter Last Name:");
+            String lastName = sc.nextLine();
+
+            System.out.println("Enter Username:");
+            String username = sc.nextLine();
                 
-                if (r.usernameExists(username)) {
-                    System.out.println("Error: Username already exists.");
-                } else {
-                    System.out.println("Enter Password:");
-                    String password = sc.nextLine();
-
-                    System.out.println("Enter Account Number:");
-                    String accountNum = sc.nextLine();
-
-                    if (r.accountNumberExists(accountNum)) {
-                        System.out.println("Error: Account number already exists.");
-                    } else {
-                        System.out.println("Initial Deposit:");
-                        double initialDeposit = sc.nextDouble();
-                        sc.nextLine();
-                WriteDetails write = new WriteDetails(firstName, lastName, username, password, accountNum, initialDeposit);
-                    }
-                }
-            }else if(input==2){
-                System.out.println("Enter First Name:");
-                String firstName = sc.next();
-                System.out.println("Enter Last Name:");
-                String lastName = sc.next();
-                System.out.println("Enter Username:");
-                String username = sc.next();
+            if (r.usernameExists(username)) {
+                System.out.println("Error: Username already exists.");
+            } else {
                 System.out.println("Enter Password:");
-                String password = sc.next();
-                Modify modifyAccount = new Modify(firstName, lastName, username, password, null);
-            } else if(input==3){
-                System.out.println("Enter Account Number to disable:");
-                String accountNum = sc.next();
-                DisableAccount disableAccount = new DisableAccount(accountNum);
-            } else if(input==4){
+                String password = sc.nextLine();
+
                 System.out.println("Enter Account Number:");
-                sc.nextLine();
                 String accountNum = sc.nextLine();
-                SearchCostumer s = new SearchCostumer();
-                s.search(accountNum);
-            }  else if(input==5){
-               Transaction t=new Transaction();
-                System.out.println("Enter Account Number:");
-                sc.nextLine();
-                String accountNum = sc.nextLine();
-                System.out.println("Deposit Amount:");
-                double Deposit = sc.nextDouble();
-                t.deposit(accountNum, Deposit);
-            } 
-            else if(input==6){
-               Transaction t=new Transaction();
-                System.out.println("Enter Account Number:");
-                sc.nextLine();
-                String accountNum = sc.nextLine();
-                System.out.println("Withdraw Amount:");
-                double Deposit = sc.nextDouble();
-                t.withdraw(accountNum, Deposit);
+
+                if (r.accountNumberExists(accountNum)) {
+                    System.out.println("Error: Account number already exists.");
+                } else {
+                    System.out.println("Initial Deposit:");
+                    double initialDeposit = sc.nextDouble();
+                    sc.nextLine(); // clear newline
+                    WriteDetails write = new WriteDetails(firstName, lastName, username, password, accountNum, initialDeposit);
+                }
             }
-                else if(input==7){
-                break;
-            }
+        } else if(input==2){
+            System.out.println("Enter account number to modify:");
+            String accountNum = sc.nextLine();
+            System.out.println("Enter First Name:");
+            String firstName = sc.nextLine();
+            System.out.println("Enter Last Name:");
+            String lastName = sc.nextLine();
+            System.out.println("Enter Username:");
+            String username = sc.nextLine();
+            System.out.println("Enter Password:");
+            String password = sc.nextLine();
+            Modify modifyAccount = new Modify(firstName, lastName, username, password, accountNum);
+        } else if(input==3){
+            System.out.println("Enter Account Number to disable:");
+            String accountNum = sc.nextLine();
+            DisableAccount disableAccount = new DisableAccount(accountNum);
+            disableAccount.disable();
+        } 
+        else if(input==4){
+            System.out.println("Enter Account Number to enable:");
+            String accountNum = sc.nextLine();
+            EnableAccount enableAccount = new EnableAccount(accountNum);
+            enableAccount.enable();
+        }else if(input==5){
+            System.out.println("Enter Account Number:");
+            String accountNum = sc.nextLine();
+            SearchCostumer s = new SearchCostumer();
+            s.search(accountNum);
+        } else if(input==7){
+            Transaction t = new Transaction();
+            System.out.println("Enter Account Number:");
+            String accountNum = sc.nextLine();
+            System.out.println("Deposit Amount:");
+            double Deposit = sc.nextDouble();
+            sc.nextLine();
+            t.readCustomerFile(accountNum);
+            t.deposit(Deposit);
+        } else if(input==6){
+            Transaction t = new Transaction();
+            System.out.println("Enter Account Number:");
+            String accountNum = sc.nextLine();
+            System.out.println("Withdraw Amount:");
+            double Deposit = sc.nextDouble();
+            sc.nextLine();
+            t.readCustomerFile(accountNum);
+            t.withdraw(Deposit);
+        } else if(input==8){
+            break;
         }
     }
+}
 
     public static void userMenu(Scanner sc, String uNam) {
         while(true){

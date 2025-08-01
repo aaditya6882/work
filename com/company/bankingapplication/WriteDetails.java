@@ -17,8 +17,8 @@ public class WriteDetails extends CreateAccount {
         try {
             FileWriter writer = new FileWriter("com/company/bankingapplication/costumer.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            String csv = String.format("%s,%s,%s,%s,%s,%.2f",
-                firstName, lastName, username, password, accountNum, balance);
+            String csv = String.format("%s,%s,%s,%s,%s,%.2f,%b",
+                firstName, lastName, username, password, accountNum, balance,true);
             bufferedWriter.write(csv);
             bufferedWriter.newLine();
             bufferedWriter.close();

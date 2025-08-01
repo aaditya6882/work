@@ -12,7 +12,7 @@ public class SearchCostumer {
             boolean found = false;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 6 && (parts[4].equals(key))) {
+                if (parts.length == 7 && (parts[4].equals(key))) {
                     System.out.println("Customer Found: " + line);
                     found = true;
                 }
