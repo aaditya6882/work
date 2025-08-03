@@ -1,4 +1,4 @@
-package com.company.bankingapplication.dao;
+package com.company.bankingapplication.file;
 import com.company.bankingapplication.Model.CreateAccount;
 import java.io.*;
 public class WriteDetails{

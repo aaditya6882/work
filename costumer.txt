@@ -1,6 +1,0 @@
-First Name: aaditya
-Last Name: acharya
-Username: aaditya
-Password: aaditya
-Account Number: 123
-

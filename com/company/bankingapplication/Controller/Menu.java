@@ -1,14 +1,15 @@
 package com.company.bankingapplication.Controller;
 import com.company.bankingapplication.Model.CreateAccount;
+import com.company.bankingapplication.Model.DisableAccountModel;
+import com.company.bankingapplication.Model.EnableAccountModel;
+import com.company.bankingapplication.Model.ModifyAccountModel;
 import com.company.bankingapplication.ServiceLayer.CheckUserLogin;
 import com.company.bankingapplication.ServiceLayer.TransactionService;
-import com.company.bankingapplication.dao.CheckBalance;
-import com.company.bankingapplication.dao.DisableAccount;
-import com.company.bankingapplication.dao.EnableAccount;
-import com.company.bankingapplication.dao.Modify;
-import com.company.bankingapplication.dao.ReadCostumer;
-import com.company.bankingapplication.dao.SearchCostumer;
-import com.company.bankingapplication.dao.WriteDetails;
+import com.company.bankingapplication.ServiceLayer.WriteDetailsService;
+import com.company.bankingapplication.dao.*;
+import com.company.bankingapplication.file.Modify;
+import com.company.bankingapplication.file.ReadCostumer;
+
 import java.util.Scanner;
 public class Menu {
     public static void main(String [] args){
@@ -49,9 +50,9 @@ public class Menu {
         System.out.println("8. Logout");
 
         int input = sc.nextInt();
-        sc.nextLine(); 
+        sc.nextLine();
 
-        if(input==1){
+        if (input == 1) {
             System.out.println("Enter First Name:");
             String firstName = sc.nextLine();
 
@@ -60,27 +61,20 @@ public class Menu {
 
             System.out.println("Enter Username:");
             String username = sc.nextLine();
-                
-            if (r.usernameExists(username)) {
-                System.out.println("Error: Username already exists.");
-            } else {
-                System.out.println("Enter Password:");
-                String password = sc.nextLine();
 
-                System.out.println("Enter Account Number:");
-                String accountNum = sc.nextLine();
+            System.out.println("Enter Password:");
+            String password = sc.nextLine();
 
-                if (r.accountNumberExists(accountNum)) {
-                    System.out.println("Error: Account number already exists.");
-                } else {
-                    System.out.println("Initial Deposit:");
-                    double initialDeposit = sc.nextDouble();
-                    sc.nextLine(); // clear newline
-                   CreateAccount c = new CreateAccount(firstName, lastName, username, password, accountNum, initialDeposit);
-                    WriteDetails W = new WriteDetails(c);
-                    System.out.println("Account created successfully!");
-                }
-            }
+            System.out.println("Enter Account Number:");
+            String accountNum = sc.nextLine();
+
+            System.out.println("Initial Deposit:");
+            double initialDeposit = sc.nextDouble();
+            sc.nextLine();
+
+            CreateAccount c = new CreateAccount(firstName, lastName, username, password, accountNum, initialDeposit);
+            new WriteDetailsService(c);
+
         } else if(input==2){
             System.out.println("Enter account number to modify:");
             String accountNum = sc.nextLine();
@@ -92,22 +86,28 @@ public class Menu {
             String username = sc.nextLine();
             System.out.println("Enter Password:");
             String password = sc.nextLine();
-            Modify modifyAccount = new Modify(firstName, lastName, username, password, accountNum);
+//            Modify modifyAccount = new Modify(firstName, lastName, username, password, accountNum);
+            ModifyAccountModel m=new ModifyAccountModel(firstName, lastName, username, password, accountNum);
+            ModifyAccountDb md=new ModifyAccountDb();
+            md.modifyAccount(m);
         } else if(input==3){
             System.out.println("Enter Account Number to disable:");
             String accountNum = sc.nextLine();
-            DisableAccount disableAccount = new DisableAccount(accountNum);
-            disableAccount.disable();
+//            DisableAccount disableAccount = new DisableAccount(accountNum);
+              DisableAccountDb disableAccount = new DisableAccountDb();
+              disableAccount.disable(new DisableAccountModel(accountNum));
         } 
         else if(input==4){
             System.out.println("Enter Account Number to enable:");
             String accountNum = sc.nextLine();
-            EnableAccount enableAccount = new EnableAccount(accountNum);
-            enableAccount.enable();
+//            EnableAccount enableAccount = new EnableAccount(accountNum);
+            EnableAccountDb enableAccount = new EnableAccountDb();
+            enableAccount.enable(new EnableAccountModel(accountNum));
         }else if(input==5){
             System.out.println("Enter Account Number:");
             String accountNum = sc.nextLine();
-            SearchCostumer s = new SearchCostumer();
+//            SearchCostumer s = new SearchCostumer();
+            SearchCostumerDb s = new SearchCostumerDb();
             s.search(accountNum);
         } else if(input==7){
             TransactionService t = new TransactionService();
@@ -118,7 +118,8 @@ public class Menu {
             sc.nextLine();
             System.out.println("Enter Username:");
             String uNam = sc.nextLine();
-            ReadCostumer readcostumer = new ReadCostumer();
+//            ReadCostumer readcostumer = new ReadCostumer();
+            ReadCustomerDb readcostumer = new ReadCustomerDb();
             if(readcostumer.isUserOwnerOfAccount(uNam, accountNum)){
                 t.deposit(Deposit, accountNum, uNam);
             }
@@ -131,7 +132,8 @@ public class Menu {
             sc.nextLine();
             System.out.println("Enter Username:");
             String uNam = sc.nextLine();
-                ReadCostumer readcostumer = new ReadCostumer();
+                ReadCustomerDb readcostumer = new ReadCustomerDb();
+//                ReadCostumer readcostumer = new ReadCostumer();
             if(readcostumer.isUserOwnerOfAccount(uNam, accountNum)){
                 t.withdraw(withdraw,   accountNum, uNam);
             }
@@ -145,12 +147,13 @@ public class Menu {
     public static void userMenu(Scanner sc, String uNam) {
         while(true){
             System.out.println("1. Check Balance");
-            System.out.println("2 Trangition details");
+            System.out.println("2 Transition details");
             System.out.println("3. Logout");
             int input=sc.nextInt();
             sc.nextLine(); 
             if (input==1){
-                CheckBalance c=new CheckBalance();
+//                CheckBalance c=new CheckBalance();
+                CheckBalanceDb c = new CheckBalanceDb();
                 double balance=c.readAll(uNam);
                 System.out.println("Balance: "+ balance);
             } else if(input==2){

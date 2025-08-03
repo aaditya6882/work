@@ -1,12 +1,14 @@
 package com.company.bankingapplication.ServiceLayer;
 import com.company.bankingapplication.Model.TransactionHistoryModel;
 import com.company.bankingapplication.Model.TransactionModel;
-import com.company.bankingapplication.dao.Transaction;
+import com.company.bankingapplication.file.Transaction;
+import com.company.bankingapplication.dao.TransactionDb;
 import java.util.*;
 public class TransactionService {
     private double balance;
         public void deposit(double amount, String accNum, String uNam) {
-            Transaction t= new Transaction();
+            // Transaction t= new Transaction();
+            TransactionDb t= new TransactionDb();
             TransactionModel m = t.readCustomerFile(accNum);
         if (m!=null) {
             double currentBalance = m.getBalance();
@@ -22,7 +24,8 @@ public class TransactionService {
     }
 
     public void withdraw(double amount, String accNum, String uNam) {
-         Transaction t= new Transaction();
+        //  Transaction t= new Transaction();
+            TransactionDb t= new TransactionDb();
          TransactionModel m = t.readCustomerFile(accNum);
         if (m!=null) {
             double currentBalance = m.getBalance();
@@ -41,7 +44,8 @@ public class TransactionService {
 
     }
 public void showTransactionHistory(String uNam,String accNum) {
-        Transaction d = new Transaction();
+        // Transaction d = new Transaction();
+            TransactionDb d= new TransactionDb();
         List<TransactionHistoryModel> history = d.readTransactionHistory(uNam,accNum);
 
         if (history.isEmpty()) {

@@ -1,7 +1,8 @@
 package com.company.bankingapplication.ServiceLayer;
 import com.company.bankingapplication.Controller.Menu;
 import com.company.bankingapplication.Model.Login;
-import com.company.bankingapplication.dao.ReadCostumer;
+import com.company.bankingapplication.dao.ReadCustomerDb;
+import com.company.bankingapplication.file.ReadCostumer;
 
 import java.util.Scanner;
 
@@ -12,7 +13,8 @@ public class CheckUserLogin extends Login {
 
     public boolean  checkUserLogin(String userName, String userpassword){
         Menu m = new Menu();
-        ReadCostumer r = new ReadCostumer();
+//        ReadCostumer r = new ReadCostumer();
+        ReadCustomerDb r = new ReadCustomerDb();
         Scanner sc = new Scanner(System.in);
 
         if (userName.equals("admin") && userpassword.equals("admin123")) {
